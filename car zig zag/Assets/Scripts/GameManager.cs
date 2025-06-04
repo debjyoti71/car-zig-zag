@@ -1,7 +1,10 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
-using System.Security.Cryptography;  // <-- Add this line
+using System.Security.Cryptography;
+using UnityEngine.SceneManagement;  // <-- Add this line
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +14,12 @@ public class GameManager : MonoBehaviour
 
     public bool isgameStarted;
 
+    [Header("GmaeOver")]
+    public GameObject GameOverPanel;
+    public GameObject NewHighScoreImage;
+    public TMP_Text lastScoreText;
+
+
     [Header("score")]
     public TMP_Text score_text;
     public TMP_Text best_text;
@@ -18,7 +27,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text star_text;
 
     int score = 0;
-    int best_score;
+    int BestScore;
     int Total_diamond;
     int Total_star;
     bool Count_Score;
@@ -33,7 +42,17 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        //StartCoroutine(UpdateScore());
+        // best score
+        BestScore = PlayerPrefs.GetInt("BestScore", 0);
+        best_text.text = BestScore.ToString("D5");
+
+        // total diamond
+        Total_diamond = PlayerPrefs.GetInt("Total_diamond", 0);
+        diamond_text.text = Total_diamond.ToString("D5");
+
+        // total star
+        Total_star = PlayerPrefs.GetInt("Total_star", 0);
+        star_text.text = Total_star.ToString("D5");
 
     }
 
@@ -59,17 +78,39 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        GameOverPanel.SetActive(true);
+        lastScoreText.text = score.ToString();
         Count_Score = false;
         PlatformSpwaner.SetActive(false);
+        if (score > BestScore)
+        {
+            NewHighScoreImage.SetActive(true);
+            BestScore = score; // <-- update it
+            PlayerPrefs.SetInt("BestScore", BestScore);
+            best_text.text = BestScore.ToString("D5");
+        }
     }
 
     IEnumerator UpdateScore()
     {
         while (Count_Score)
         {
-            score++;
-            score_text.text = score.ToString("D5");
             yield return new WaitForSeconds(1f);
+            score++;
+            if (score >= BestScore)
+            {
+                score_text.text = score.ToString();
+                best_text.text = BestScore.ToString("D5");
+            }
+            else {
+                score_text.text = score.ToString();
+            }
+
         }
+    }
+
+    public void replay_game()
+    {
+        SceneManager.LoadScene("Level");
     }
 }
