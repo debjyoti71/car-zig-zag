@@ -149,3 +149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2768eb1dc2052c84fbd511b563dc43e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  platformblast: {fileID: 8301586787565753301, guid: 1e68d5c7928143f42b16d8fe09cecc9c, type: 3}
+  Star: {fileID: 2309606407376422883, guid: 283a2400ad01aad49a6f401c1cb10931, type: 3}
+  Diamond: {fileID: 8107260519914532813, guid: 5476e3af23ea6b048b4b6aeeae5ed636, type: 3}

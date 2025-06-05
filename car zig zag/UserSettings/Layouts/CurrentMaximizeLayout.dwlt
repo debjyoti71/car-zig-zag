@@ -178,7 +178,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 23626
+  controlID: 6112
   draggingID: 0
 --- !u!114 &5
 MonoBehaviour:
@@ -771,9 +771,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 365.5103, y: 763.0593, z: -3.6856678}
+    m_Target: {x: 0.13850811, y: 0.68568593, z: -0.016062131}
     speed: 2
-    m_Value: {x: 365.5103, y: 763.0593, z: -3.6856678}
+    m_Value: {x: 0.13850811, y: 0.68568593, z: -0.016062131}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -819,17 +819,17 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.015599381, y: 0.0023999, z: -0.000037664056, w: 0.9998813}
+    m_Target: {x: 0.14950272, y: 0.5062708, z: -0.0896209, w: 0.8445899}
     speed: 2
-    m_Value: {x: 0.01559929, y: 0.002399886, z: -0.000037663838, w: 0.9998755}
+    m_Value: {x: 0.14950085, y: 0.5062645, z: -0.08961978, w: 0.84457934}
   m_Size:
-    m_Target: 813.1424
+    m_Target: 8.149092
     speed: 2
-    m_Value: 813.1424
+    m_Value: 8.149092
   m_Ortho:
-    m_Target: 0
+    m_Target: 1
     speed: 2
-    m_Value: 0
+    m_Value: 1
   m_CameraSettings:
     m_Speed: 1
     m_SpeedNormalized: 0.5
@@ -920,10 +920,10 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 71}
-      m_SelectedIDs: 3063ffff
-      m_LastClickedID: -40144
-      m_ExpandedIDs: be2effffca41fffff656ffff3063fffff2faffff9ca60000
+      scrollPos: {x: 0, y: 103}
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 4687ffff02c3ffffe2e0ffff96e1ffff4ee2fffff2fafffff4ffffff90a60000cca60000e8a6000000a70000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1048,7 +1048,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/misc
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1058,16 +1058,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/misc
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Program Files\games_D\car-zig-zag\car zig zag
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 7aa90000
-    m_LastClickedID: 43386
-    m_ExpandedIDs: 00000000fca80000fea8000000a90000
+    scrollPos: {x: 0, y: 29.200012}
+    m_SelectedIDs: 28aa0000
+    m_LastClickedID: 43560
+    m_ExpandedIDs: 00000000a8a90000aaa90000aca90000aea90000b0a90000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1096,7 +1096,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000fca80000fea8000000a90000
+    m_ExpandedIDs: 00000000a8a90000aaa90000aca90000aea90000b0a90000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1122,9 +1122,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 3063ffff
-    m_LastClickedInstanceID: -40144
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0

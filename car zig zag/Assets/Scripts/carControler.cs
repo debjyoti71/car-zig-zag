@@ -2,12 +2,19 @@ using UnityEngine;
 
 public class carControler : MonoBehaviour
 {
-
     public float speed = 5f;
-    bool faceLeft, firstTab;
+    public bool firstTapDone = false;
+    bool faceLeft = true;
 
+    public static carControler instance;  
 
-    // Update is called once per frame
+    void Start()
+    {
+        instance = this;
+        float yRot = transform.eulerAngles.y;
+        faceLeft = Mathf.Approximately(yRot, 90f);
+    }
+
     void Update()
     {
         if (GameManager.instance.isgameStarted)
@@ -15,7 +22,7 @@ public class carControler : MonoBehaviour
             checkInput();
             Move();
         }
-        
+
         if (transform.position.y < -2f)
         {
             GameManager.instance.GameOver();
@@ -25,28 +32,45 @@ public class carControler : MonoBehaviour
     void Move()
     {
         transform.position += transform.forward * speed * Time.deltaTime;
+
     }
 
-    void checkInput() { 
-    if (Input.GetMouseButtonDown(0))
+    void checkInput()
+    {
+        if (Input.GetMouseButtonDown(0))
         {
             changeDir();
+
         }
     }
+
 
     void changeDir()
     {
         if (faceLeft)
         {
-            transform.rotation = Quaternion.Euler(0, 90, 0);
+            transform.rotation = Quaternion.Euler(0, 0, 0);
             faceLeft = false;
         }
         else
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            transform.rotation = Quaternion.Euler(0, 90, 0);
             faceLeft = true;
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("diamond"))
+        {
+            Destroy(collision.gameObject);
+            GameManager.instance.AddDiamond();
+        }
 
+        if (collision.gameObject.CompareTag("star"))
+        {
+            Destroy(collision.gameObject);
+            GameManager.instance.AddStar();
+        }
+    }
 }

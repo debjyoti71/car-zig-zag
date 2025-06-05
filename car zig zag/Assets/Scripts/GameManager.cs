@@ -3,7 +3,6 @@ using UnityEngine;
 using TMPro;
 using System.Security.Cryptography;
 using UnityEngine.SceneManagement;  // <-- Add this line
-using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
@@ -18,6 +17,8 @@ public class GameManager : MonoBehaviour
     public GameObject GameOverPanel;
     public GameObject NewHighScoreImage;
     public TMP_Text lastScoreText;
+
+    public TMP_Text lastStarText;
 
 
     [Header("score")]
@@ -80,6 +81,7 @@ public class GameManager : MonoBehaviour
     {
         GameOverPanel.SetActive(true);
         lastScoreText.text = score.ToString();
+        lastStarText.text = Total_star.ToString();
         Count_Score = false;
         PlatformSpwaner.SetActive(false);
         if (score > BestScore)
@@ -109,8 +111,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void AddDiamond()
+    {
+        Total_diamond++;
+        diamond_text.text = Total_diamond.ToString("D5");
+        PlayerPrefs.SetInt("Total_diamond", Total_diamond);
+    }
+
+    public void AddStar()
+    {
+        Total_star++;
+        score++;
+        star_text.text = Total_star.ToString("D5");
+        //PlayerPrefs.SetInt("Total_star", 0);
+    }
+
     public void replay_game()
     {
+        isgameStarted = false;
         SceneManager.LoadScene("Level");
+        
     }
+
+
 }
