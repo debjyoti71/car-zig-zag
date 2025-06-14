@@ -8,8 +8,14 @@ public class CameraFollow : MonoBehaviour
     public Transform target; // The target to follow
     Vector3 distance;
     public float followspeed; // Speed of the camera following
+
+    private void Awake()
+    {
+       
+    }
     void Start()
     {
+        target = GameObject.FindGameObjectWithTag("Player").transform; // Find the player object by tag
         distance = target.position - transform.position; // Calculate the initial distance from the target
     }
 

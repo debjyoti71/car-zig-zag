@@ -78,6 +78,7 @@ public class SelectCar : MonoBehaviour
         if (PlayerPrefs.GetInt(ownCarIndex, 0) == 1)
         {
             PlayerPrefs.SetInt("SelectedCar", currentCar);
+            //continueAD.Instantiate._showAdButton.interactable = true;
             SceneManager.LoadScene("Level");
         }
         else

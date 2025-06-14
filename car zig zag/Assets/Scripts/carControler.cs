@@ -39,10 +39,16 @@ public class carControler : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            changeDir();
+            if (!firstTapDone)
+            {
+                firstTapDone = true;  // First tap is just to start the game, ignore it
+                return;
+            }
 
+            changeDir();
         }
     }
+
 
 
     void changeDir()
