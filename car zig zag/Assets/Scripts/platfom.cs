@@ -42,6 +42,7 @@ public class platfom : MonoBehaviour
     {
         GetComponent<Rigidbody>().isKinematic = false;
         Destroy(gameObject, 0.6f);
+
     }
 
 }

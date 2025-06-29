@@ -2,24 +2,40 @@ using UnityEngine;
 
 public class carControler : MonoBehaviour
 {
+    [Header("Car Settings")]
     public float speed = 5f;
+    public bool isAutoMode = false;
     public bool firstTapDone = false;
-    bool faceLeft = true;
 
-    public static carControler instance;  
+    public static carControler instance;
+
+    bool isMoving = false;
+    int currentIndex = 0;
+    Vector3 targetPosition;
+    bool reachedEnd = false;
 
     void Start()
     {
         instance = this;
+
+        // Round initial Y rotation to determine facing direction
         float yRot = transform.eulerAngles.y;
-        faceLeft = Mathf.Approximately(yRot, 90f);
     }
 
     void Update()
     {
         if (GameManager.instance.isgameStarted)
         {
-            checkInput();
+            if (isAutoMode)
+            {
+                if (!reachedEnd)
+                    AutoFollowPath();
+            }
+            else
+            {
+                checkInput();
+            }
+
             Move();
         }
 
@@ -29,19 +45,13 @@ public class carControler : MonoBehaviour
         }
     }
 
-    void Move()
-    {
-        transform.position += transform.forward * speed * Time.deltaTime;
-
-    }
-
     void checkInput()
     {
         if (Input.GetMouseButtonDown(0))
         {
             if (!firstTapDone)
             {
-                firstTapDone = true;  // First tap is just to start the game, ignore it
+                firstTapDone = true;
                 return;
             }
 
@@ -49,19 +59,56 @@ public class carControler : MonoBehaviour
         }
     }
 
-
-
     void changeDir()
     {
-        if (faceLeft)
+        transform.Rotate(0, 90, 0); // turn 90° right
+    }
+
+    void AutoFollowPath()
+    {
+        var path = PlatformSpawner.instance.platformLoc;
+
+        if (!isMoving && path.ContainsKey(currentIndex))
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-            faceLeft = false;
+            targetPosition = path[currentIndex];
+            Vector3 direction = (targetPosition - transform.position).normalized;
+
+            // Rotate towards direction
+            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.z))
+                transform.rotation = Quaternion.Euler(0, direction.x > 0 ? 90 : -90, 0);
+            else
+                transform.rotation = Quaternion.Euler(0, direction.z > 0 ? 0 : 180, 0);
+
+            isMoving = true;
         }
-        else
+
+        if (isMoving)
         {
-            transform.rotation = Quaternion.Euler(0, 90, 0);
-            faceLeft = true;
+            float dist = Vector3.Distance(transform.position, targetPosition);
+            if (dist < 0.1f)
+            {
+                transform.position = targetPosition; // snap to center
+                currentIndex++;
+                isMoving = false;
+
+                if (!path.ContainsKey(currentIndex))
+                {
+                    reachedEnd = true;
+                    Debug.Log("Auto Path Complete!");
+                }
+            }
+        }
+    }
+
+    void Move()
+    {
+        if (isAutoMode && isMoving)
+        {
+            transform.position += transform.forward * speed * Time.deltaTime;
+        }
+        else if (!isAutoMode)
+        {
+            transform.position += transform.forward * speed * Time.deltaTime;
         }
     }
 

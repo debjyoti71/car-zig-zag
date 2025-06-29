@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
@@ -21,6 +22,9 @@ public class GameManager : MonoBehaviour
     public TMP_Text best_text;
     public TMP_Text diamond_text;
     public TMP_Text star_text;
+
+    [Header("auto mode")]
+    [SerializeField] Button autoModeButton;
 
     int score = 0;
     int lastScore = 0;
@@ -153,5 +157,10 @@ public class GameManager : MonoBehaviour
 
         isgameStarted = false;
         SceneManager.LoadScene("Level");
+    }
+
+    public void automode()
+    {
+        carControler.instance.isAutoMode = !carControler.instance.isAutoMode;
     }
 }

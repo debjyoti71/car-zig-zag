@@ -1,46 +1,63 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformSpwaner : MonoBehaviour
+public class PlatformSpawner : MonoBehaviour
 {
-    public GameObject platform;           // Prefab for the platform to spawn
-    public Transform lastPlatform;        // Reference to the last spawned platform
+    [Header("Spawner Settings")]
+    public GameObject platform;            // Platform prefab to spawn
+    public Transform lastPlatform;         // Initial reference platform
 
-    Vector3 lastpose;                     // Position of the last spawned platform
-    Vector3 newpose;                      // Position for the new platform
+    public bool stop;                      // Flag to control spawning
+    public float spawnDelay = 0.2f;        // Delay between spawns
 
-    public bool stop;                     // Flag to control spawning
+    private Vector3 lastPos;               // Last platform position
+    private Vector3 newPos;                // New platform position
+
+    public Dictionary<int, Vector3> platformLoc = new Dictionary<int, Vector3>();
+    private int platformIndex = 0;
+
+    public static PlatformSpawner instance;
+
+    void Awake()
+    {
+        instance = this;
+    }
+
 
     void Start()
     {
-        lastpose = lastPlatform.position; // Initialize lastpose with the position of the last platform
-        StartCoroutine(SpawnPlatform());
+        // Save initial platform position
+        lastPos = lastPlatform.position;
+        platformLoc[platformIndex++] = lastPos;
+
+        // Start spawning
+        StartCoroutine(SpawnPlatformLoop());
     }
 
-    // Generate new position based on last position
-    void genaratePos()
-    {
-        newpose = lastpose;
-        int rand = Random.Range(0, 2); // Generates 0 or 1
-        if (rand > 0)
-        {
-            newpose.x += 2f;
-        }
-        else
-        {
-            newpose.z += 2f;
-        }
-    }
-
-    // Coroutine that continuously spawns platforms
-    IEnumerator SpawnPlatform()
+    // Coroutine for continuous spawning
+    IEnumerator SpawnPlatformLoop()
     {
         while (!stop)
         {
-            genaratePos(); // Calculate new position
-            Instantiate(platform, newpose, Quaternion.identity); // Spawn the platform
-            lastpose = newpose; // Update last position
-            yield return new WaitForSeconds(0.2f); // Wait for 0.2 seconds before spawning next
+            GenerateNewPosition();
+            Instantiate(platform, newPos, Quaternion.identity);
+            platformLoc[platformIndex++] = newPos;
+
+            lastPos = newPos;
+            yield return new WaitForSeconds(spawnDelay);
         }
+    }
+
+    // Determine next spawn position (left or forward)
+    void GenerateNewPosition()
+    {
+        newPos = lastPos;
+        int rand = Random.Range(0, 2); // 0 or 1
+
+        if (rand == 0)
+            newPos.z += 2f;   // forward
+        else
+            newPos.x += 2f;   // right
     }
 }
